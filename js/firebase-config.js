@@ -12,7 +12,7 @@
 //
 // With this config in place the app calls Firebase AI Logic with
 // InferenceMode.PREFER_ON_DEVICE (Gemini Nano 4 on Chrome, falling back
-// to gemini-2.5-flash-lite in the cloud). Without it, the app runs in
+// to gemini-3.5-flash-lite in the cloud). Without it, the app runs in
 // LOCAL DEMO MODE via the built-in rule-based analyser (js/ai.js).
 // ---------------------------------------------------------------------------
 

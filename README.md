@@ -13,7 +13,7 @@ Shop owners record income and expenses in seconds, see their day/week at a glanc
 Most small-shop owners use cheap Android phones or shared computers, often with slow or no internet. LedgerLens runs its AI **on-device first**:
 
 - **On-device:** Firebase AI Logic with `InferenceMode.PREFER_ON_DEVICE` runs summaries on **Gemini Nano 4** in Chrome — fast, private (the ledger never leaves the browser), and free.
-- **Cloud fallback:** when no on-device model is available, the same call falls back to **`gemini-2.5-flash-lite`** in the cloud.
+- **Cloud fallback:** when no on-device model is available, the same call falls back to **`gemini-3.5-flash-lite`** in the cloud.
 - **Every answer is labelled** with where it was computed — *On device · Gemini Nano*, *Cloud · Gemini Flash*, or *Local analyser* — so the user always knows.
 
 ## Features
@@ -38,7 +38,7 @@ import { getAI, GoogleAIBackend, getGenerativeModel, InferenceMode } from "fireb
 const ai = getAI(app, { backend: new GoogleAIBackend() });
 const model = getGenerativeModel(ai, {
   mode: InferenceMode.PREFER_ON_DEVICE,          // Gemini Nano 4 first
-  inCloudParams: { model: "gemini-2.5-flash-lite", generationConfig: { maxOutputTokens: 512 } },
+  inCloudParams: { model: "gemini-3.5-flash-lite", generationConfig: { maxOutputTokens: 512 } },
   onDeviceParams: { promptOptions: { systemInstruction: "You are LedgerLens, a friendly money coach…" } },
 });
 const result = await model.generateContent(prompt);

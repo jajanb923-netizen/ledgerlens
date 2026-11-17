@@ -6,7 +6,7 @@
 //   getAI(app, { backend: new GoogleAIBackend() })
 //   getGenerativeModel(ai, {
 //     mode: InferenceMode.PREFER_ON_DEVICE,          // Gemini Nano 4 first
-//     inCloudParams: { model: 'gemini-2.5-flash-lite', ... },
+//     inCloudParams: { model: 'gemini-3.5-flash-lite', ... },
 //     onDeviceParams: { promptOptions: { ... } },
 //   })
 //   model.generateContent(prompt) -> response.text()
@@ -52,11 +52,11 @@ async function getHybridModel() {
 
 function makeModel(getGenerativeModel, InferenceMode, ai) {
   // Hybrid inference: prefer the on-device model (Gemini Nano 4 in Chrome);
-  // fall back to the cloud model (gemini-2.5-flash-lite) when unavailable.
+  // fall back to the cloud model (gemini-3.5-flash-lite) when unavailable.
   return getGenerativeModel(ai, {
     mode: InferenceMode.PREFER_ON_DEVICE,
     inCloudParams: {
-      model: "gemini-2.5-flash-lite",
+      model: "gemini-3.5-flash-lite",
       generationConfig: { maxOutputTokens: 512, temperature: 0.4 },
     },
     onDeviceParams: {
