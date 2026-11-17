@@ -1,0 +1,1 @@
+{"dependencies":{"firebase":"^12.6.0"},"description":"Offline-first daily money ledger for small shops with hybrid AI insights via Firebase AI Logic (Gemini Nano on-device + Gemini Flash cloud). Built for #BuildHybridAI 2026.","license":"MIT","name":"ledgerlens","scripts":{"serve":"python3 -m http.server 8080","serve:node":"npx --yes serve ."},"type":"module","version":"1.0.0"}
