@@ -11,9 +11,12 @@
 //   })
 //   model.generateContent(prompt) -> response.text()
 //   response.inferenceSource tells us 'ON_DEVICE' or 'IN_CLOUD'.
-//   App Check: debug tokens are accepted for hackathon submissions
-//   (see firebase-config.js). The SDK is imported dynamically so the app
-//   still loads fully offline / without a Firebase project.
+//   App Check is enforced for AI Logic, so getHybridModel() initializes
+//   it with the debug provider (token registered in the Firebase console;
+//   debug tokens are accepted for hackathon submissions — production
+//   would use reCAPTCHA Enterprise instead). The SDK is imported
+//   dynamically so the app still loads fully offline / without a
+//   Firebase project.
 //
 // FALLBACK PATH (local demo mode): a deterministic, rule-based analyser
 // (localAnalyse) computes the same kinds of answers from the ledger data
@@ -30,16 +33,27 @@ async function getHybridModel() {
   if (modelPromise) return modelPromise;
   modelPromise = (async () => {
     const { initializeApp } = await import("firebase/app");
+    const { initializeAppCheck, ReCaptchaEnterpriseProvider } =
+      await import("firebase/app-check");
     const { getAI, GoogleAIBackend, getGenerativeModel, InferenceMode } =
       await import("firebase/ai");
-    // NOTE: Firebase AI Logic requires App Check. For a hackathon demo the
-    // debug provider is accepted: set self.FIREBASE_APPCHECK_DEBUG_TOKEN =
-    // true in the browser console before first load and register the debug
-    // token in Firebase Console > App Check. For production, enable
-    // reCAPTCHA Enterprise and call initializeAppCheck() here.
-    // (No App Check code is bundled by default so the app also runs with
-    // zero Firebase setup in local demo mode.)
+    // App Check is enforced for Firebase AI Logic since the backend was
+    // enabled, so calls without a token fail HTTP 401. For this hackathon
+    // demo we use the debug provider, which the hackathon rules accept:
+    // the debug token below is registered in the Firebase console (App
+    // Check > Manage debug tokens, "LedgerLens Debug Token"). Verified
+    // against the Firebase JS SDK 12.6.0 source: when
+    // self.FIREBASE_APPCHECK_DEBUG_TOKEN is set, the SDK exchanges the
+    // debug token for a real App Check token and never calls the
+    // configured provider — so the placeholder site key below is unused.
+    // Production: replace with a real reCAPTCHA Enterprise site key.
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN =
+      "9ECA94FE-1B18-4E7A-BDBE-3EF0412F9E16";
     const app = initializeApp(firebaseConfig);
+    initializeAppCheck(app, {
+      provider: new ReCaptchaEnterpriseProvider("ledgerlens-debug"),
+      isTokenAutoRefreshEnabled: true,
+    });
     const ai = getAI(app, { backend: new GoogleAIBackend() });
     return makeModel(getGenerativeModel, InferenceMode, ai);
   })().catch((err) => {
