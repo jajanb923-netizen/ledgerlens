@@ -1,33 +1,28 @@
 // ---------------------------------------------------------------------------
 // Firebase project configuration for LedgerLens.
 // ---------------------------------------------------------------------------
-// HOW TO ENABLE REAL HYBRID AI (free tier, ~5 minutes, no payment needed):
-//   1. Go to https://console.firebase.google.com and create a free project.
-//   2. In the project: Build > AI Logic > Get started. Enable the
-//      Gemini Developer API backend and turn on the free tier.
-//   3. In the project: Build > App Check > Apps > register this web app and
-//      enable the debug provider for local testing (debug tokens are
-//      accepted in hackathon submissions). For production use, enable
-//      reCAPTCHA Enterprise instead of the debug provider.
-//   4. In Project settings > Your apps > Web app, copy the firebaseConfig
-//      object and paste it below, replacing the placeholder values.
-//   5. Rebuild/redeploy. The app will then call Firebase AI Logic with
-//      InferenceMode.PREFER_ON_DEVICE (Gemini Nano 4 on Chrome, falling
-//      back to gemini-2.5-flash-lite in the cloud).
+// Project: ledgerlens (ID ledgerlens-adad4), Spark free tier, no billing.
+// AI Logic enabled with the Gemini Developer API backend; App Check debug
+// provider registered in the Firebase console (debug tokens are accepted
+// in hackathon submissions). The values below are Firebase web client
+// identifiers — public by design (Firebase docs: they identify the project,
+// they are not secret keys). No Gemini API key or other secret is in this
+// repository. For production, enable reCAPTCHA Enterprise instead of the
+// debug provider (see js/ai.js).
 //
-// Until a real config is pasted here, the app runs in LOCAL DEMO MODE:
-// every AI feature still works through a built-in rule-based analyser
-// (js/ai.js -> localAnalyse), so the app is fully usable with zero setup.
-// No API key or secret is ever committed to this repository.
+// With this config in place the app calls Firebase AI Logic with
+// InferenceMode.PREFER_ON_DEVICE (Gemini Nano 4 on Chrome, falling back
+// to gemini-2.5-flash-lite in the cloud). Without it, the app runs in
+// LOCAL DEMO MODE via the built-in rule-based analyser (js/ai.js).
 // ---------------------------------------------------------------------------
 
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyBSvldo4nOxaxc2iQin2w-yPS-bd-nQKeo",
+  authDomain: "ledgerlens-adad4.firebaseapp.com",
+  projectId: "ledgerlens-adad4",
+  storageBucket: "ledgerlens-adad4.firebasestorage.app",
+  messagingSenderId: "403335430873",
+  appId: "1:403335430873:web:37f9417201aa8418aff4c8",
 };
 
 // True when a real Firebase project has been pasted in above.
