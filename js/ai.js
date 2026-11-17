@@ -95,7 +95,7 @@ export async function askAI(prompt, ledgerContext) {
       const result = await model.generateContent(fullPrompt);
       const response = result.response;
       const text = response.text();
-      const source = response.inferenceSource || "IN_CLOUD";
+      const source = (response.inferenceSource || "IN_CLOUD").toUpperCase();
       return { text: text.trim(), source };
     } catch (err) {
       console.warn("[LedgerLens] Hybrid inference failed, using local analyser:", err);
